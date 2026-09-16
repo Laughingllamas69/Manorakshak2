@@ -1,0 +1,28 @@
+[theme]
+base = "light"
+primaryColor = "#008080"
+backgroundColor = "#F4F6F8"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#2C3E50"
+linkColor = "#006666"
+borderColor = "#E2E8F0"
+borderRadius = "12px"
+font = "'Inter', 'Noto Sans Devanagari', sans-serif"
+headingFont = "'Inter', 'Noto Sans Devanagari', sans-serif"
+
+
+[theme.light]
+base = "light"
+primaryColor = "#008080"
+backgroundColor = "#F4F6F8"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#2C3E50"
+
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F8FAFB"
+
+
+[browser]
+gatherUsageStats = false
