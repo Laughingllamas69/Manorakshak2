@@ -221,35 +221,28 @@ SOP_RESETS = [
 def get_ollama_response(system_prompt: str, user_prompt: str) -> str | None:
     """Call Ollama local server. Returns text or None on failure."""
     try:
-        # Configure model name. Ensure you have pulled this model (e.g., ollama pull llama3)
-        model_name = "llama3" 
-        
-        # Construct the full prompt
-        full_prompt = f"{system_prompt}\n\nUser Request: {user_prompt}"
+        model_name = "llama3"
 
-        # Generate response
         response = ollama.chat(
             model=model_name,
             messages=[
-                {
-                    'role': 'system',
-                    'content': system_prompt,
-                },
-                {
-                    'role': 'user',
-                    'content': user_prompt,
-                },
-            ]
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            options={
+                "num_predict": 2000,   # <-- This is the key change
+                "temperature": 0.7
+            }
         )
-        
-        if response and response['message'] and response['message']['content']:
-            return response['message']['content'].strip()
+
+        if response and response["message"] and response["message"]["content"]:
+            return response["message"]["content"].strip()
         else:
             print("Ollama returned empty response.")
             return None
 
     except Exception as e:
-        print(f"Ollama Error: {e}. Ensure Ollama is running (ollama serve) and the model is pulled.")
+        print(f"Ollama Error: {e}")
         return None
 
 
@@ -262,9 +255,11 @@ the officer as a professional who serves under real operational stress —
 never as a "patient". You NEVER diagnose. You validate their service and
 their feelings, then offer 2-3 concrete, actionable grounding or
 tactical-reset techniques (e.g. box breathing, grounding exercises,
-post-shift decompression routines). Keep the response under 220 words,
-in plain conversational English (a few Hindi words like "himmat" or
-"seva" are welcome if natural, but do not overdo it).
+post-shift decompression routines). Provide a detailed, supportive response 
+of approximately 300-500 words. Be thorough in explaining why each technique 
+works and how to practice it step-by-step. Use plain conversational English 
+(a few Hindi words like "himmat" or "seva" are welcome if natural, but do not 
+overdo it).
 
 If the distress category is "Critical Distress", gently and non-alarmingly
 encourage them to reach out to a confidential helpline or their peer
